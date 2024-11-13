@@ -1,0 +1,570 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "private_outputs": true,
+      "provenance": [],
+      "gpuType": "T4",
+      "mount_file_id": "1M964tgF20vicjp3Z8yHNairTFwudpgtJ",
+      "authorship_tag": "ABX9TyMJTsS0m36rBeWIvJZT+Bh7",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Savagejoker909/Bert/blob/main/Project%20ai\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "collapsed": true,
+        "id": "ezHHxxCZyKnE"
+      },
+      "outputs": [],
+      "source": [
+        "!pip install tensorflow beautifulsoup4 requests"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import requests\n",
+        "from bs4 import BeautifulSoup\n",
+        "\n",
+        "def scrape_data(query):\n",
+        "    url = f\"https://www.google.com/search?q={query}\"\n",
+        "    response = requests.get(url)\n",
+        "    soup = BeautifulSoup(response.text, 'html.parser')\n",
+        "\n",
+        "    # Extract text content from search results\n",
+        "    paragraphs = soup.find_all('p')\n",
+        "    text_data = [para.get_text() for para in paragraphs]\n",
+        "    return text_data\n",
+        "\n",
+        "query = \"AI self-learning models\"\n",
+        "data = scrape_data(query)\n",
+        "print(data)"
+      ],
+      "metadata": {
+        "id": "VVf17FYAyYpU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "class SimpleAI:\n",
+        "    def __init__(self, actions):\n",
+        "        self.actions = actions\n",
+        "        self.q_table = np.zeros(len(actions))\n",
+        "\n",
+        "    def learn(self, reward, action_idx):\n",
+        "        learning_rate = 0.1\n",
+        "        discount_factor = 0.9\n",
+        "        self.q_table[action_idx] = self.q_table[action_idx] + learning_rate * (reward + discount_factor * np.max(self.q_table) - self.q_table[action_idx])\n",
+        "\n",
+        "    def choose_action(self):\n",
+        "        return np.argmax(self.q_table)\n",
+        "\n",
+        "import numpy as np\n",
+        "\n",
+        "class SimpleAI:\n",
+        "    def __init__(self, actions):\n",
+        "        self.actions = actions\n",
+        "        self.q_table = np.zeros(len(actions))\n",
+        "\n",
+        "    def learn(self, reward, action_idx):\n",
+        "        learning_rate = 0.1\n",
+        "        discount_factor = 0.9\n",
+        "        self.q_table[action_idx] = self.q_table[action_idx] + learning_rate * (reward + discount_factor * np.max(self.q_table) - self.q_table[action_idx])\n",
+        "\n",
+        "    def choose_action(self):\n",
+        "        return np.argmax(self.q_table)\n",
+        "\n",
+        "# Define possible actions the AI can take\n",
+        "actions = [\"search\", \"analyze\", \"ignore\"]\n",
+        "ai = SimpleAI(actions)\n",
+        "\n",
+        "# Simulating AI choosing an action based on its learning\n",
+        "for step in range(10):\n",
+        "    action_idx = ai.choose_action()\n",
+        "    print(f\"AI chooses to: {actions[action_idx]}\")\n",
+        "\n",
+        "    # Simulate reward\n",
+        "    reward = np.random.random()  # Random reward for illustration purposes\n",
+        "    ai.learn(reward, action_idx)\n",
+        "import numpy as np\n",
+        "\n",
+        "class SimpleAI:\n",
+        "    def __init__(self, actions):\n",
+        "        self.actions = actions\n",
+        "        self.q_table = np.zeros(len(actions))\n",
+        "\n",
+        "    def learn(self, reward, action_idx):\n",
+        "        learning_rate = 0.1\n",
+        "        discount_factor = 0.9\n",
+        "        self.q_table[action_idx] = self.q_table[action_idx] + learning_rate * (reward + discount_factor * np.max(self.q_table) - self.q_table[action_idx])\n",
+        "\n",
+        "    def choose_action(self):\n",
+        "        return np.argmax(self.q_table)\n",
+        "\n",
+        "import numpy as np\n",
+        "\n",
+        "class SimpleAI:\n",
+        "    def __init__(self, actions):\n",
+        "        self.actions = actions\n",
+        "        self.q_table = np.zeros(len(actions))\n",
+        "\n",
+        "    def learn(self, reward, action_idx):\n",
+        "        learning_rate = 0.1\n",
+        "        discount_factor = 0.9\n",
+        "        self.q_table[action_idx] = self.q_table[action_idx] + learning_rate * (reward + discount_factor * np.max(self.q_table) - self.q_table[action_idx])\n",
+        "\n",
+        "    def choose_action(self):\n",
+        "        return np.argmax(self.q_table)\n",
+        "\n",
+        "# Define possible actions the AI can take\n",
+        "actions = [\"search\", \"analyze\", \"ignore\"]\n",
+        "ai = SimpleAI(actions)\n",
+        "\n",
+        "# Simulating AI choosing an action based on its learning\n",
+        "for step in range(10):\n",
+        "    action_idx = ai.choose_action()\n",
+        "    print(f\"AI chooses to: {actions[action_idx]}\")\n",
+        "\n",
+        "    # Simulate reward\n",
+        "    reward = np.random.random()  # Random reward for illustration purposes\n",
+        "    ai.learn(reward, action_idx)\n",
+        "\n",
+        "for step in range(10):\n",
+        "    action_idx = ai.choose_action()  # unexpired with zip()\n",
+        "    print(f\"AI chooses to: {actions[action_idx]}\")\n",
+        "\n",
+        "    # Simulate reward\n",
+        "    reward = np.random.random()  # Random reward for illustration purposes\n",
+        "    ai.learn(reward, action_idx)\n",
+        "\n",
+        "    # Simulate reward\n",
+        "    reward = np.random.random()  # Random reward for illustration purposes\n",
+        "    ai.learn(reward, action_idx)"
+      ],
+      "metadata": {
+        "id": "rz7PTwdUyjYo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from selenium import webdriver\n",
+        "\n",
+        "driver"
+      ],
+      "metadata": {
+        "id": "x54Vheq5T2m4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "iTo3B7ezTs3o"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "ssTj8avITySX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install selenium"
+      ],
+      "metadata": {
+        "id": "cvzu4JozzEkR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "yDrxv44fzWPq"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "! sudo safaridriver --enable"
+      ],
+      "metadata": {
+        "id": "jWpoS9ry1J5t"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install selenium"
+      ],
+      "metadata": {
+        "id": "NEzNac6J1beY"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!npm audit fix --force\n",
+        "!npm audit\n",
+        "!npm i --package-lock-only\n",
+        "!npm audit fix --force\n",
+        "!npm audit"
+      ],
+      "metadata": {
+        "id": "8-orCzA32e6N"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "!npm audit fix --force\n",
+        "!npm update"
+      ],
+      "metadata": {
+        "id": "ab3AlGE4168i"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install Appium-Python-Client\n",
+        "!brew install node\n",
+        "!npm install -g appium"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "0bUa5UGe4DFo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from appium import webdriver\n",
+        "\n",
+        "# Desired capabilities for iPhone 13\n",
+        "desired_caps = {\n",
+        "    \"platformName\": \"iOS\",\n",
+        "    \"platformVersion\": \"YOUR_IOS_VERSION\",  # e.g., \"16.0\"\n",
+        "    \"deviceName\": \"iPhone 13\",\n",
+        "    \"browserName\": \"Safari\",\n",
+        "    \"automationName\": \"XCUITest\"\n",
+        "}\n",
+        "\n",
+        "# Connect to Appium server (make sure Appium server is running on Mac)\n",
+        "driver = webdriver.Remote(\"http://localhost:4723/wd/hub\", desired_caps)\n",
+        "\n",
+        "# Open Wikipedia\n",
+        "driver.get(\"https://www.wikipedia.org\")\n",
+        "\n",
+        "# Perform any other actions...\n",
+        "\n",
+        "# Quit the driver\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "j4bh_LolO9tR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install selenium\n",
+        "\n",
+        "from appium import webdriver\n",
+        "from selenium.webdriver.chrome.options import Options\n",
+        "\n",
+        "# Desired capabilities for iPhone 13\n",
+        "desired_caps = {\n",
+        "    \"platformName\": \"iOS\",\n",
+        "    \"platformVersion\": \"YOUR_IOS_VERSION\",  # e.g., \"16.0\"\n",
+        "    \"deviceName\": \"iPhone 13\",\n",
+        "    \"browserName\": \"Safari\",\n",
+        "    \"automationName\": \"XCUITest\",\n",
+        "    'w3c': False  # Add this line\n",
+        "}\n",
+        "\n",
+        "# Use ChromeOptions as a workaround to create an Options object\n",
+        "options = Options()\n",
+        "options.set_capability(\"platformName\", desired_caps[\"platformName\"])\n",
+        "options.set_capability(\"platformVersion\", desired_caps[\"platformVersion\"])\n",
+        "options.set_capability(\"deviceName\", desired_caps[\"deviceName\"])\n",
+        "options.set_capability(\"browserName\", desired_caps[\"browserName\"])\n",
+        "options.set_capability(\"automationName\", desired_caps[\"automationName\"])\n",
+        "\n",
+        "\n",
+        "# Connect to Appium server (make sure Appium server is running on Mac)\n",
+        "driver = webdriver.Remote(\"http://localhost:4723/wd/hub\", options=options)\n",
+        "\n",
+        "# Open Wikipedia\n",
+        "driver.get(\"https://www.wikipedia.org\")\n",
+        "\n",
+        "# Perform any other actions...\n",
+        "\n",
+        "# Quit the driver\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "id": "0ZZ6SDjIPJyn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "driver = webdriver.Remote(\"http://localhost:b/hub\", options=options)"
+      ],
+      "metadata": {
+        "id": "f154S8y3Q6ML"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!npm audit fix --force"
+      ],
+      "metadata": {
+        "id": "AE8BSMFzM0VT"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from selenium import webdriver\n",
+        "from selenium.webdriver.common.by import By\n",
+        "from selenium.webdriver.chrome.service import Service\n",
+        "\n",
+        "# Set up the web driver (make sure to have the right driver for your browser)\n",
+        "# Use Service to specify the path to the ChromeDriver executable\n",
+        "service = Service(\"/path/to/c\")  # Replace with the actual path\n",
+        "driver = webdriver.Chrome(service=service)\n",
+        "\n",
+        "# Open a webpage\n",
+        "driver.get(\"https://www.wikipedia.org/\")\n",
+        "\n",
+        "# Wait for page to load and scrape specific data\n",
+        "element = driver.find_element(By.XPATH, '//*[text()=\"Some Text\"]')\n",
+        "print(element.text)\n",
+        "\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "id": "gLaXF-wxzq_T"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from appium import webdriver\n",
+        "\n",
+        "# Set up capabilities for iOS\n",
+        "desired_caps = {\n",
+        "    \"platformName\": \"iOS\",\n",
+        "    \"platformVersion\": \"iOS 18.0.1\",  # e.g., \"16.0\"\n",
+        "    \"deviceName\": \"iphone 13\",  # e.g., \"iPhone 14\"\n",
+        "    \"browserName\": \"Safari\",\n",
+        "    \"automationName\": \"XCUITest\"\n",
+        "}\n",
+        "\n",
+        "# Connect to Appium server (make sure Appium server is running on Mac)\n",
+        "driver = webdriver.Remote(\"http://localhost:4723/wd/hub\", desired_caps)\n",
+        "\n",
+        "# Open Wikipedia\n",
+        "driver.get(\"https://www.wikipedia.org\")\n",
+        "\n",
+        "# Perform any other actions...\n",
+        "\n",
+        "# Quit the driver\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "5eZOMHZjH9uF"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from appium import webdriver\n",
+        "from appium.options.ios import XCUITestOptions\n",
+        "\n",
+        "# Set up capabilities for iOS\n",
+        "desired_caps = {\n",
+        "    \"platformName\": \"iOS\",\n",
+        "    \"platformVersion\": \"16.0\",  # e.g., \"16.0\"\n",
+        "    \"deviceName\": \"iPhone 14\",  # e.g., \"iPhone 14\"\n",
+        "    \"browserName\": \"Safari\",\n",
+        "    \"automationName\": \"XCUITest\"\n",
+        "}\n",
+        "\n",
+        "# Create an instance of XCUITestOptions and load desired capabilities\n",
+        "options = XCUITestOptions().load_capabilities(desired_caps)\n",
+        "\n",
+        "# Connect to Appium server (make sure Appium server is running on Mac)\n",
+        "driver = webdriver.Remote(\"http://localhost:4723/wd/hub\", options=options)\n",
+        "\n",
+        "# Open Wikipedia\n",
+        "driver.get(\"https://www.wikipedia.org\")\n",
+        "\n",
+        "# Perform any other actions...\n",
+        "\n",
+        "# Quit the driver\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "GHbr1qU1H94i"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from appium import webdriver\n",
+        "!pip install --force -r <requirements.txt>\n",
+        "from appium.options.ios import XCUITestOptions\n",
+        "\n",
+        "# Set up capabilities for iOS\n",
+        "desired_caps = {\n",
+        "    \"platformName\": \"iOS\",\n",
+        "    \"platformVersion\": \"16.0\",  # Update with your device's iOS version\n",
+        "    \"deviceName\": \"iPhone 13\",  # Update with your device's name\n",
+        "    \"browserName\": \"Safari\",  # or 'Safari'\n",
+        "    \"automationName\": \"XCUITest\"\n",
+        "}\n",
+        "\n",
+        "# Create an instance of XCUITestOptions and load desired capabilities\n",
+        "options = XCUITestOptions().load_capabilities(desired_caps)\n",
+        "\n",
+        "# Connect to Appium server (make sure Appium server is running on Mac)\n",
+        "driver = webdriver.Remote(\"http://localhost:4723/wd/hub\", options=options)\n",
+        "\n",
+        "# Open Wikipedia\n",
+        "driver.get(\"https://www.google.com\")\n",
+        "\n",
+        "# Perform any other actions...\n",
+        "\n",
+        "# Quit the driver\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "3dGmMVzgH-NX"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!driver = webdriver.Remote \"http://localhost:4723/wd/hub\", options=options  # Verify port if changed"
+      ],
+      "metadata": {
+        "id": "HceY5BveH-lG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from selenium import webdriver\n",
+        "from selenium.webdriver.common.by import By\n",
+        "\n",
+        "# Set up the web driver (make sure to have the right driver for your browser)\n",
+        "driver = webdriver.Chrome(executable_path=\"/path/to/chromedriver\")\n",
+        "\n",
+        "# Open a webpage\n",
+        "driver.get(\"https://www.example.com\")\n",
+        "\n",
+        "# Wait for page to load and scrape specific data\n",
+        "element = driver.find_element(By.XPATH, '//*[text()=\"Some Text\"]')\n",
+        "print(element.text)\n",
+        "\n",
+        "driver.quit()"
+      ],
+      "metadata": {
+        "collapsed": true,
+        "id": "qG2gouCzzXE_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def store_memory(input_text, output_text):\n",
+        "    # Store conversations to be used in future learning\n",
+        "    with open(\"memory.txt\", \"a\") as file:\n",
+        "        file.write(f\"Input: {input_text}\\nOutput: {output_text}\\n\")\n",
+        "\n",
+        "# Example usage\n",
+        "store_memory(\"What's your plan?\", \"To learn more about you and improve.\")"
+      ],
+      "metadata": {
+        "id": "JmoxzKnZy2Xv"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
